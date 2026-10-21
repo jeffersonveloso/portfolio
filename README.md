@@ -53,6 +53,7 @@ src/
 
 ```bash
 npm install
+cp .env.example .env.local   # optional: every variable has a default
 npm run dev     # http://localhost:3000
 npm test        # unit tests (domain rules, use case, content contract)
 npm run lint    # ESLint, including the architecture boundaries
