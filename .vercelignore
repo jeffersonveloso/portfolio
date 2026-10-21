@@ -1,0 +1,8 @@
+# Not needed to build the site. docs/ also holds the unblurred screenshots
+# and the LinkedIn PDF, which stay off Vercel.
+/docs
+/.impeccable
+/.claude
+/*.md
+/tsconfig.tsbuildinfo
+/.env*

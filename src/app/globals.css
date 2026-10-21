@@ -1,26 +1,482 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Home page: Apple product-page language (DESIGN-APPLE.md, owner-pinned).
+   One interactive accent (action blue); colour lives in the products. */
+@theme {
+  --color-canvas: #ffffff;
+  --color-parchment: #f5f5f7;
+  --color-pearl: #fafafc;
+  --color-tile-1: #272729;
+  --color-tile-2: #2a2a2c;
+  --color-tile-3: #252527;
+  --color-graphite: #1d1d1f;
+  --color-graphite-80: #333333;
+  --color-graphite-48: #7a7a7a;
+  /* Secondary text: #7a7a7a fails AA at caption size, so copy uses this. */
+  --color-secondary: #6e6e73;
+  --color-mist: #cccccc;
+  --color-hairline: #e0e0e0;
+  --color-divider: #f0f0f0;
+  --color-action: #0066cc;
+  --color-action-focus: #0071e3;
+  /* Darker than Apple's #0077ed so white pill text keeps AA on hover. */
+  --color-action-hover: #0058b0;
+  --color-sky: #2997ff;
+
+  /* The system's one shadow, for product renders resting on a surface. */
+  --shadow-product: rgba(0, 0, 0, 0.22) 3px 5px 30px 0;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* SF Pro on Apple platforms, Inter everywhere else. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, var(--font-geist-mono), monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --focus: var(--color-action-focus);
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4.5rem;
+  }
+
+  body {
+    background: var(--color-canvas);
+    color: var(--color-graphite);
+    font-size: 17px;
+    line-height: 1.47;
+    letter-spacing: -0.022em;
+    caret-color: var(--color-action);
+  }
+
+  /* The macOS text highlight. */
+  ::selection {
+    background: #b3d7ff;
+    color: var(--color-graphite);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+  }
+
+  /* The page holds still behind an open screenshot. */
+  html:has(dialog[open]) {
+    overflow: hidden;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------- Keyboard (home) ----------
+   The keyboard is the page's product render: its colour is material, not
+   UI chrome, so it keeps its own colourway beside the single action blue. */
+@layer components {
+  .kb {
+    --u: 56px;
+    display: inline-block;
+    padding: calc(var(--u) * 0.3);
+    border-radius: calc(var(--u) * 0.42);
+    background: linear-gradient(180deg, #eeeff2 0%, #d4d6db 100%);
+    /* The system's one product shadow, plus the case's machined edges. */
+    box-shadow:
+      var(--shadow-product),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      inset 0 -3px 0 rgba(0, 0, 0, 0.07);
+  }
+
+  .kb-plate {
+    position: relative;
+    isolation: isolate;
+    width: calc(var(--u) * var(--units, 15));
+    height: calc(var(--u) * var(--rows, 5));
+  }
+
+  .key {
+    --cap-top: #fbfbfd;
+    --cap-side: #e7e8ec;
+    --cap-base: #c6c8cf;
+    --cap-legend: #1d1d1f;
+    position: absolute;
+    left: calc(var(--x) * var(--u));
+    top: calc(var(--y) * var(--u));
+    width: calc(var(--w, 1) * var(--u));
+    height: var(--u);
+    padding: calc(var(--u) * 0.045);
+    color: var(--cap-legend);
+    text-decoration: none;
+  }
+
+  .key[data-tone="mod"] {
+    --cap-top: #4a4a4d;
+    --cap-side: #3a3a3c;
+    --cap-base: #1f1f21;
+    --cap-legend: #f5f5f7;
+  }
+  .key[data-tone="action"] {
+    --cap-top: #1170d0;
+    --cap-side: #0066cc;
+    --cap-base: #004c99;
+    --cap-legend: #ffffff;
+  }
+  .key[data-tone="green"] {
+    --cap-top: #6cc451;
+    --cap-side: #57ad3d;
+    --cap-base: #3e8a29;
+  }
+  .key[data-tone="yellow"] {
+    --cap-top: #fdc23a;
+    --cap-side: #f0ad18;
+    --cap-base: #c98c06;
+  }
+  .key[data-tone="purple"] {
+    --cap-top: #a24ea3;
+    --cap-side: #8a3a8b;
+    --cap-base: #682a69;
+    --cap-legend: #ffffff;
+  }
+  .key[data-tone="orange"] {
+    --cap-top: #f9963f;
+    --cap-side: #ec7d1c;
+    --cap-base: #b85f0b;
+  }
+
+  .key-cap {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: calc(var(--u) * 0.14);
+    background: var(--cap-side);
+    box-shadow:
+      0 calc(var(--u) * 0.06) 0 var(--cap-base),
+      0 calc(var(--u) * 0.09) calc(var(--u) * 0.1) rgba(0, 0, 0, 0.12);
+    transition:
+      transform 0.14s ease-out,
+      box-shadow 0.14s ease-out;
+  }
+
+  /* Sculpted top face, slightly narrower than the skirt. The side skirt is
+     a fixed share of the key unit, so wide keys (space, shift, return) keep
+     a 1u key's proportions instead of growing thick sides. */
+  .key-cap::before,
+  .key-cap::after {
+    content: "";
+    position: absolute;
+    inset: 5% calc(var(--u) * 0.073) 16%;
+    border-radius: calc(var(--u) * 0.1);
+  }
+  .key-cap::before {
+    background: radial-gradient(130% 100% at 50% 15%, color-mix(in srgb, var(--cap-top) 82%, white) 0%, var(--cap-top) 62%);
+  }
+  /* Typing glow: lights in the key's colour, then cools back. */
+  .key-cap::after {
+    background: var(--lit, transparent);
+    opacity: 0;
+    transition: opacity 0.9s ease-out;
+  }
+  .key[data-lit] .key-cap::after {
+    opacity: 1;
+    transition-duration: 0.05s;
+  }
+
+  .key[data-down] .key-cap {
+    transform: translateY(calc(var(--u) * 0.05));
+    box-shadow:
+      0 calc(var(--u) * 0.012) 0 var(--cap-base),
+      0 calc(var(--u) * 0.03) calc(var(--u) * 0.05) rgba(0, 0, 0, 0.1);
+  }
+
+  .key-legend {
+    position: absolute;
+    inset: 11% calc(var(--u) * 0.137) 24%;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: max(calc(var(--u) * 0.19), 9px);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: 0;
+    white-space: nowrap;
+    transition: color 0.9s ease-out;
+  }
+  /* Backlight: light from under a lit key. It sits below every cap
+     (the plate isolates the stack), so it only shows in the gaps of the
+     plate around that key, never on its neighbours. */
+  .key::before {
+    content: "";
+    position: absolute;
+    inset: calc(var(--u) * 0.02);
+    z-index: 0;
+    border-radius: calc(var(--u) * 0.16);
+    box-shadow: 0 0 calc(var(--u) * 0.18) calc(var(--u) * 0.04) var(--lit, transparent);
+    opacity: 0;
+    transition: opacity 0.9s ease-out;
+  }
+  .key[data-lit]::before {
+    opacity: 0.85;
+    transition-duration: 0.05s;
+  }
+
+  .key[data-lit] .key-legend {
+    color: var(--lit-legend, inherit);
+    transition-duration: 0.05s;
+  }
+  .key-legend[data-align="center"] {
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* The space bar's echo of what the visitor types, with a text caret. */
+  .key-echo {
+    white-space: pre;
+  }
+  .key-caret {
+    display: inline-block;
+    width: 1.5px;
+    height: 1.15em;
+    margin-left: 1px;
+    vertical-align: -0.2em;
+    background: var(--color-action);
+    animation: caret-blink 1.06s steps(1) infinite;
+  }
+  @keyframes caret-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* The hero board fills the column up to 62px keys. */
+  .kb-hero {
+    --u: min(62px, calc((100vw - 40px) / 15.6));
+  }
+
+  /* Small boards are product shots: keep the keys, drop the legends. */
+  /* On small boards only the name keys and return keep their legends. */
+  @media (width < 48rem) {
+    .kb-hero .key-legend {
+      display: none;
+    }
+    .kb-hero [data-keep] .key-legend,
+    .kb-hero [data-code="Enter"] .key-legend {
+      display: flex;
+    }
+  }
+
+  /* Project keysets: big, legible keys. */
+  .kb-set {
+    --u: clamp(52px, 13vw, 76px);
+  }
+
+  /* The featured project's keyset is the tile's largest element. */
+  .kb-set-lg {
+    --u: clamp(56px, 14vw, 104px);
+  }
+
+  /* The case study's split board: one case per kitchen, sized so both
+     halves and the gap between them always fit the column. */
+  .kb-split {
+    --u: clamp(36px, calc((100vw - 40px) / 7.6), 72px);
+    display: inline-flex;
+    gap: calc(var(--u) * 0.75);
+  }
+  .kb-split > .kb {
+    --u: inherit;
+    transition: transform 0.8s var(--ease-out-expo);
+  }
+  /* Joined: the halves meet at the seam. They snap together instantly and
+     only the split is animated. */
+  .kb-split[data-joined] > .kb {
+    transition: none;
+  }
+  .kb-split[data-joined] > .kb:first-child {
+    transform: translateX(calc(var(--u) * 0.375));
+  }
+  .kb-split[data-joined] > .kb:last-child {
+    transform: translateX(calc(var(--u) * -0.375));
+  }
+
+  /* Skills as a novelty keycap set: same material as the board, laid out
+     inline so they wrap like text. Static facts, not actions. */
+  .keycap-chip {
+    --u: 46px;
+    --cap-top: #fbfbfd;
+    --cap-side: #e7e8ec;
+    --cap-base: #c6c8cf;
+    position: relative;
+    display: inline-flex;
+    align-items: flex-start;
+    min-height: var(--u);
+    padding: 7px 14px 14px;
+    border-radius: 10px;
+    background: var(--cap-side);
+    box-shadow:
+      0 3px 0 var(--cap-base),
+      0 5px 8px rgba(0, 0, 0, 0.1);
+    color: var(--color-graphite);
+  }
+  .keycap-chip::before {
+    content: "";
+    position: absolute;
+    inset: 3px 4px 8px;
+    border-radius: 8px;
+    background: radial-gradient(130% 100% at 50% 15%, #ffffff 0%, var(--cap-top) 62%);
+  }
+  .keycap-chip > span {
+    position: relative;
+  }
+  .keycap-chip[data-tone="mod"] {
+    --cap-top: #4a4a4d;
+    --cap-side: #3a3a3c;
+    --cap-base: #1f1f21;
+    color: #f5f5f7;
+  }
+  .keycap-chip[data-tone="mod"]::before {
+    background: radial-gradient(130% 100% at 50% 15%, #5a5a5e 0%, var(--cap-top) 62%);
+  }
+
+  .kb-macro {
+    --u: min(72px, calc((100vw - 40px) / 9.6));
+  }
+
+  /* The contact return key is a real link: it travels when hovered and
+     bottoms out when pressed. */
+  .kb-return {
+    --u: 76px;
+  }
+  /* Back to top: one graphite key in its own case, fixed at the bottom
+     right. It rises in once the hero has scrolled away and is hidden (and
+     out of the tab order) until then. */
+  .kb-top {
+    --u: 40px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 40;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition:
+      opacity 0.2s ease-out,
+      transform 0.35s var(--ease-out-expo),
+      visibility 0s linear 0.35s;
+  }
+  .kb-top[data-shown] {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+  .kb-top-arrow {
+    width: calc(var(--u) * 0.42);
+    height: calc(var(--u) * 0.42);
+  }
+  @media (width >= 48rem) {
+    .kb-top {
+      --u: 44px;
+      right: 32px;
+      bottom: 32px;
+    }
+  }
+
+  .kb-return:hover .key-cap,
+  .kb-top:hover .key-cap {
+    transform: translateY(calc(var(--u) * 0.025));
+  }
+  .kb-return:active .key-cap,
+  .kb-top:active .key-cap {
+    transform: translateY(calc(var(--u) * 0.05));
+    box-shadow: 0 calc(var(--u) * 0.012) 0 var(--cap-base);
+  }
+
+  .key:focus-visible {
+    outline: none;
+  }
+  .key:focus-visible .key-cap {
+    outline: 2px solid var(--color-action-focus);
+    outline-offset: 2px;
+  }
+
+  /* macOS window chrome. */
+  .traffic {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.2);
+  }
+
+  /* The debugger's current line. */
+  .code-line[data-active] {
+    background: #1e2836;
+  }
+
+  /* Screenshot viewer: the window grows in over a dimmed page and
+     shrinks back out when it closes. */
+  .shot-dialog {
+    opacity: 0;
+    transform: scale(0.96);
+    transition:
+      opacity 0.2s ease-out,
+      transform 0.35s var(--ease-out-expo),
+      overlay 0.35s allow-discrete,
+      display 0.35s allow-discrete;
+  }
+  .shot-dialog[open] {
+    opacity: 1;
+    transform: none;
+  }
+  @starting-style {
+    .shot-dialog[open] {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+  .shot-dialog::backdrop {
+    background-color: rgb(0 0 0 / 0);
+    transition:
+      background-color 0.35s ease-out,
+      overlay 0.35s allow-discrete,
+      display 0.35s allow-discrete;
+  }
+  .shot-dialog[open]::backdrop {
+    background-color: rgb(0 0 0 / 0.8);
+  }
+  @starting-style {
+    .shot-dialog[open]::backdrop {
+      background-color: rgb(0 0 0 / 0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .key::before,
+  .key-cap,
+  .key-cap::after,
+  .key-legend,
+  .kb-split > .kb,
+  .kb-top,
+  .shot-dialog,
+  .shot-dialog::backdrop {
+    transition: none;
+  }
+  .key-caret {
+    animation: none;
+  }
 }

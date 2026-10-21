@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Kept local, never published: the owner's notes, the unblurred screenshots
+# and the LinkedIn export (docs/), vendored AI tooling (.claude/) and design
+# tool records (.impeccable/).
+/docs/
+/.claude/
+/.impeccable/
+.playwright-mcp/
