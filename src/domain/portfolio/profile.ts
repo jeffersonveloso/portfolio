@@ -34,6 +34,8 @@ export type Profile = {
   };
   readonly languages: readonly Language[];
   readonly photo: Image;
+  /** Path to the CV, a PDF served from public/. */
+  readonly cv: string;
   readonly contact: Contact;
 };
 

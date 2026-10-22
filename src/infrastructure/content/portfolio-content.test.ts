@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { whatsappUrl } from "@/domain/portfolio/contact";
 import { StaticPortfolioRepository } from "@/infrastructure/content/static-portfolio-repository";
@@ -24,6 +26,11 @@ describe("portfolio content", () => {
 
   it("has a WhatsApp number wa.me accepts", () => {
     expect(() => whatsappUrl(portfolio.profile.contact)).not.toThrow();
+  });
+
+  // docs/ stays local, so the CV the page links to must be its copy in public/.
+  it("publishes the CV the page links to", () => {
+    expect(existsSync(join("public", portfolio.profile.cv))).toBe(true);
   });
 
   it("describes every screenshot for people who cannot see it", () => {

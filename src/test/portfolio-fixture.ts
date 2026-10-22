@@ -16,6 +16,7 @@ export function aPortfolio(): Portfolio {
       location: { region: "London", country: "United Kingdom", countryCode: "GB", timezone: "UTC" },
       languages: [{ name: "English", level: "native", code: "en" }],
       photo: { src: "/ada.jpg", width: 240, height: 300 },
+      cv: "/ada-cv.pdf",
       contact: {
         email: "ada@example.com",
         emailSubject: "Remote role — let's talk",

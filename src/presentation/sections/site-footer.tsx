@@ -68,6 +68,11 @@ export function SiteFooter({ profile, sections, projects, links }: SiteFooterPro
                   GitHub
                 </a>
               </li>
+              <li>
+                <a href={profile.cv} download type="application/pdf" className={link}>
+                  CV (PDF)
+                </a>
+              </li>
             </ul>
           </div>
         </div>

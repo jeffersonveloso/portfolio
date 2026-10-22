@@ -494,9 +494,10 @@ Quiet, Apple-standard and blue.
 - **Primary:** Action Blue fill, white 17px label, 11px × 22px padding. "Email me" appears in the hero, the sub-nav and Contact, always as a mailto with a prefilled subject.
 - **Hover / Focus / Active:** fill moves to Action Hover. Focus is the 2px Focus Blue outline at a 2px offset. Pressing scales the pill to 95%. Transform and background ease over 150ms.
 - **Compact primary:** the sub-nav's "Email me" at 14px with 7px × 15px padding.
-- **Ghost:** transparent with a 1px Action Blue border and text, and Action Blue at 5% on hover ("See the work").
+- **Ghost:** transparent with a 1px Action Blue border and text, and Action Blue at 5% on hover ("Download CV" with a Download icon, "See the work").
 - **Ghost on dark:** the same in Sky, with Sky at 10% on hover. "Copy email" uses it with a Copy icon. Its live label changes to "Email copied" (Check icon) or a failure hint, then resets after 2.4s.
-- **Pairing:** a primary and a ghost, centred, 16px apart.
+- **Pairing:** a primary and a ghost, centred, 16px apart. The hero adds a second ghost: "Email me", "Download CV", "See the work".
+- **CV download:** the hero's "Download CV" pill, "Download my CV ›" in Contact's link row and "CV (PDF)" in the footer's Contact list all download the same PDF from `public/`.
 - **Text links:** Action Blue on light and Sky on dark, with no underline until hover (0.2em offset). Links set in running copy that open something further ("View my LinkedIn profile ›", "Visit Valueva ›") end with a " ›" chevron, in Apple's link grammar. Footer list links have no chevron.
 - **Skip link:** a Graphite 8px utility rect with white text, shown on focus at the top left.
 

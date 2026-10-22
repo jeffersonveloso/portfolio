@@ -31,7 +31,8 @@ Jefferson is a Full Stack Software Engineer and Tech Lead with 9+ years of exper
 
 - Stack: Next.js 16 (App Router, Cache Components) + Tailwind CSS v4, TypeScript. Already scaffolded.
 - Static content; no backend required. The contact path is email and LinkedIn links. *(inferred)*
-- Open decisions: résumé PDF, custom domain, the years Conciliador and English in Class started, and a higher-resolution portrait (the current source is 400 × 400).
+- The CV is a PDF in `public/`, downloadable from the hero, Contact and the footer.
+- Open decisions: custom domain, the years Conciliador and English in Class started, and a higher-resolution portrait (the current source is 400 × 400).
 
 ## Brand Commitments
 

@@ -1,3 +1,4 @@
+import { Download } from "@/presentation/icons";
 import { Keyboard } from "@/presentation/keyboard/keyboard";
 import type { Profile } from "@/domain/portfolio/profile";
 import type { Section } from "@/domain/portfolio/section";
@@ -24,6 +25,10 @@ export function Hero({ profile, sections, mailto }: HeroProps) {
       <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
         <a href={mailto} className={button.primary}>
           Email me
+        </a>
+        <a href={profile.cv} download type="application/pdf" className={button.ghost}>
+          <Download />
+          Download CV
         </a>
         <a href="#work" className={button.ghost}>
           See the work

@@ -53,6 +53,9 @@ export function Contact({ profile, links }: { profile: Profile; links: ContactLi
         <a href={contact.github} target="_blank" rel="noreferrer" className={textLinkOnDark}>
           Code on GitHub ›
         </a>
+        <a href={profile.cv} download type="application/pdf" className={textLinkOnDark}>
+          Download my CV ›
+        </a>
       </p>
       <p className={`${type.caption} mt-8 text-mist`}>
         {[`${location.region}, ${location.country}`, location.timezone, ...profile.languages.map(formatLanguage)].join(

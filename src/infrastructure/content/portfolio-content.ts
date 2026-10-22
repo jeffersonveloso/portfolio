@@ -21,6 +21,7 @@ export const portfolioContent: Portfolio = {
       { name: "Portuguese", level: "native", code: "pt-BR" },
     ],
     photo: { src: "/images/jefferson-veloso.jpg", width: 240, height: 300 },
+    cv: "/Jefferson_Veloso_CV.pdf",
     contact: {
       email: "jfvsofthouse@gmail.com",
       emailSubject: "Remote role — let's talk",
