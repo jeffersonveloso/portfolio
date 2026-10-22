@@ -12,7 +12,7 @@ export const portfolioContent: Portfolio = {
     summary:
       "9+ years connecting business systems in TypeScript, Node.js and NestJS. Based in Brazil (UTC−3), open to remote Full Stack and Software Engineer roles.",
     tagline: "Software that connects the systems a business already runs on.",
-    bio: "I'm a Full Stack Software Engineer and Tech Lead with 9+ years of experience. Today I'm Co-founder and CTO of Valueva, a valuation and value-based management SaaS with an embedded AI agent, and I deliver integration and automation projects for companies as a contractor.",
+    bio: "I'm a Full Stack Software Engineer and Tech Lead with 9+ years of experience. Today I work as a Full Stack Software Engineer on Valueva, a valuation and value-based management SaaS with an embedded AI agent, and I deliver integration and automation projects for companies as a contractor.",
     availability: "Open to remote Full Stack and Software Engineer roles.",
     facts: { experience: "9+ years", basedIn: "Brazil · UTC−3", english: "B2 · studied in London" },
     location: { region: "Minas Gerais", country: "Brazil", countryCode: "BR", timezone: "UTC−3" },
@@ -108,8 +108,8 @@ export const portfolioContent: Portfolio = {
       name: "Valueva",
       summary:
         "Valuation and value-based management SaaS with an embedded AI agent, for small and mid-sized companies.",
-      body: "As co-founder and CTO, I lead the technical vision and the development of the platform: company valuation, monthly value tracking, goals and action plans for SMBs, financial BPOs and consultancies. It ships with Eva, an embedded agentic AI grounded by RAG on each company's data: she answers with cited evidence, proposes action plans that run only after the user approves them, and sends proactive and scheduled reports.",
-      role: "CTO & Co-founder",
+      body: "As a Full Stack Software Engineer, I build the platform: company valuation, monthly value tracking, goals and action plans for SMBs, financial BPOs and consultancies. It ships with Eva, an embedded agentic AI grounded by RAG on each company's data: she answers with cited evidence, proposes action plans that run only after the user approves them, and sends proactive and scheduled reports.",
+      role: "Full Stack Software Engineer",
       stack: ["Next.js", "NestJS", "AI agent", "RAG"],
       period: { from: 2025 },
       stage: "Demo with real users",
@@ -236,12 +236,12 @@ export const portfolioContent: Portfolio = {
   experience: [
     {
       company: "Valueva",
-      role: "CTO & Co-founder",
+      role: "Full Stack Software Engineer",
       period: { from: 2025 },
       points: [
-        "Lead the technical vision and turn business requirements into architecture and implementation decisions.",
-        "Plan and evolve the valuation, KPI, goal-setting and action-plan features.",
-        "Lead the development of Eva, the platform's embedded agentic AI, grounded by RAG on each company's data.",
+        "Turn business requirements into architecture and implementation decisions.",
+        "Build and evolve the valuation, KPI, goal-setting and action-plan features.",
+        "Develop Eva, the platform's embedded agentic AI, grounded by RAG on each company's data.",
         "Run spec-driven development with AI across planning, implementation and code review.",
       ],
     },

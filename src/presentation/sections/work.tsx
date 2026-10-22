@@ -142,7 +142,7 @@ export function Work({ projects, caseStudy, engagements }: WorkProps) {
           Selected work.
         </h2>
         <p className={`${type.lead} mx-auto mt-3 max-w-[32ch] text-balance`}>
-          Three products I built and lead, and one client case study.
+          Three products I built, and one client case study.
         </p>
       </div>
 

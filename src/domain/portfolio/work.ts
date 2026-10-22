@@ -4,7 +4,7 @@ import type { Period } from "@/domain/portfolio/period";
 /** A product's own colour, used for its keyset. */
 export type ProductAccent = "green" | "purple" | "yellow" | "orange";
 
-/** A product the owner built and leads. */
+/** A product the owner built. */
 export type Project = {
   readonly slug: string;
   readonly name: string;

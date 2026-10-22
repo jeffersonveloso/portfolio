@@ -19,7 +19,7 @@ A personal portfolio site for Jefferson Veloso that turns a recruiter's first vi
 
 ## Positioning
 
-Jefferson is a Full Stack Software Engineer and Tech Lead with 9+ years of experience whose specialty is connecting business systems and removing manual work: ERP ⇄ CRM integrations (Omie, Zoho), financial and operational automation, and SaaS products taken from idea to real users. He runs AI-assisted, Spec-Driven Development (PRD → Tech Spec → tasks → implementation → AI code review). He is Co-founder & CTO of Valueva.
+Jefferson is a Full Stack Software Engineer and Tech Lead with 9+ years of experience whose specialty is connecting business systems and removing manual work: ERP ⇄ CRM integrations (Omie, Zoho), financial and operational automation, and SaaS products taken from idea to real users. He runs AI-assisted, Spec-Driven Development (PRD → Tech Spec → tasks → implementation → AI code review). He works on Valueva as a Full Stack Software Engineer.
 
 ## Operating Context
 
@@ -46,7 +46,7 @@ Jefferson is a Full Stack Software Engineer and Tech Lead with 9+ years of exper
 
 From `docs/Profile.pdf`:
 
-- **Valueva**: CTO & Co-founder, June 2025 to present. SaaS for valuation and Value-Based Management for SMBs, financial BPOs and consultancies. Live at https://app.valueva.com.br (MVP).
+- **Valueva**: June 2025 to present. The portfolio shows the role as Full Stack Software Engineer, a development role, and never presents him as an owner of Valueva, whatever older sources such as the Profile.pdf say (owner, 2026-10-21). SaaS for valuation and Value-Based Management for SMBs, financial BPOs and consultancies. Live at https://app.valueva.com.br (MVP).
 - **JFV SOFTHOUSE**: Integration Developer & Tech Lead (contractor), May 2022 to present. Cryobras (control panel for the Zoho CRM ⇄ Omie ERP integration; owner, 2026-10-21: he built the whole integration, syncing sales orders from Zoho CRM to Omie ERP and sending payment settlement records ("baixa") and NF-e back to the order in Zoho; he also built the admin panel that adds new group companies to the integration, updates module mappings and lists the records of the integrated modules); VMI Security (Tech Lead on a proposal builder with machine configuration, integrated with Zoho CRM, replacing spreadsheets, plus code review of other developers); an own product used by several companies to replicate financial records across Omie accounts; a financial reconciliation tool (MVP) that extracts transactions from PDF bank statements and maps them to charts of accounts (https://app.jfvsofthouse.com).
 - **Agruppa Soluções em BackOffice**: Programmer, then Mobile Engineer, July 2017 to June 2022. Mobile app for purchase orders and quotations with a manager approval workflow; REST API integrated with Omie ERP. The portfolio shows the role as Full Stack Developer (owner, 2026-10-21): the app and PWA were built in Ionic 5, the REST API in NestJS, and he maintained a Python API in Flask for two years.
 - English learning platform, MVP: https://english.jfvsofthouse.com (owner-provided).
