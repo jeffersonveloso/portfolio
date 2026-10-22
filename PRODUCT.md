@@ -32,7 +32,7 @@ Jefferson is a Full Stack Software Engineer and Tech Lead with 9+ years of exper
 - Stack: Next.js 16 (App Router, Cache Components) + Tailwind CSS v4, TypeScript. Already scaffolded.
 - Static content; no backend required. The contact path is email and LinkedIn links. *(inferred)*
 - The CV is a PDF in `public/`, downloadable from the hero, Contact and the footer.
-- Open decisions: custom domain, the years Conciliador and English in Class started, and a higher-resolution portrait (the current source is 400 × 400).
+- Open decisions: custom domain, the years Conciliador and English in Class started.
 
 ## Brand Commitments
 
@@ -59,7 +59,7 @@ From `docs/Profile.pdf`:
   - English in Class: digital book, printable PDFs, audio with transcripts, exercises and rubric grading; students join with a class code and study offline on their phones (PWA); site in English, Portuguese and Spanish; built with Next.js.
   - Valueva: valuation, EVA and value-based management for SMBs; built with Next.js and Tailwind CSS. Site in Portuguese only.
 - NestJS in every project's stack (owner, 2026-10-21): Valueva, Conciliador, English in Class and Bistrô Orders Manager. Confirmed locally for the Valueva backend (`node-projects/valueva-backend`) and the Conciliador backend (`node-projects/bank-conciliator/backend`); the local Bistrô repository runs its API on Next.js route handlers, and no English in Class repository was found.
-- Portrait photo: `docs/1789075050883.jpeg` (owner-provided, 400 × 400), cropped for the site to `public/images/jefferson-veloso.jpg`.
+- Portrait photo: the full-resolution original (owner's Photos library, 4284 × 5712, Display P3), kept as `docs/jefferson-original.jpg`. The site's 4:5 crop (1627 × 2034 at 2161, 1266, the framing first cut from the 400 × 400 LinkedIn copy `docs/1789075050883.jpeg`) is converted to sRGB, stripped of EXIF (the original carries GPS) and saved as `public/images/jefferson-veloso-portrait.jpg` (880 × 1100).
 - Stack: TypeScript, JavaScript, Node.js, NestJS, Angular, Next.js, Python, Flask, Ionic, Docker, REST APIs, RAG / LLM integration.
 - Education: Centro Universitário Una (Computer Systems Technology); Clean Code, Clean Architecture and AI for Developers (Branas.io); General English Intensive, Stafford House International, London (Oct 2024 to Jan 2025). English B2.
 - Location: Minas Gerais, Brazil. Open to remote Full Stack / Software Engineer roles.

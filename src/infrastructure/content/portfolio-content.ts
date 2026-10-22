@@ -20,7 +20,9 @@ export const portfolioContent: Portfolio = {
       { name: "English", level: "B2", code: "en" },
       { name: "Portuguese", level: "native", code: "pt-BR" },
     ],
-    photo: { src: "/images/jefferson-veloso.jpg", width: 240, height: 300 },
+    // Cropped from the full-resolution original (docs/jefferson-original.jpg),
+    // large enough for 2x screens.
+    photo: { src: "/images/jefferson-veloso-portrait.jpg", width: 880, height: 1100 },
     cv: "/Jefferson_Veloso_CV.pdf",
     contact: {
       email: "jeffersonveloso_6@hotmail.com",
