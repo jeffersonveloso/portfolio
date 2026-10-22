@@ -63,7 +63,7 @@ From `docs/Profile.pdf`:
 - Stack: TypeScript, JavaScript, Node.js, NestJS, Angular, Next.js, Python, Flask, Ionic, Docker, REST APIs, RAG / LLM integration.
 - Education: Centro Universitário Una (Computer Systems Technology); Clean Code, Clean Architecture and AI for Developers (Branas.io); General English Intensive, Stafford House International, London (Oct 2024 to Jan 2025). English B2.
 - Location: Minas Gerais, Brazil. Open to remote Full Stack / Software Engineer roles.
-- Contact: jfvsofthouse@gmail.com; GitHub https://github.com/jeffersonveloso (owner's account, 2026-10-21); WhatsApp +55 31 99381-8360 (https://wa.me/5531993818360, owner, 2026-10-21); https://www.linkedin.com/in/jefferson-veloso-462195b1
+- Contact: jeffersonveloso_6@hotmail.com (owner, 2026-10-22, matching the CV); GitHub https://github.com/jeffersonveloso (owner's account, 2026-10-21); WhatsApp +55 31 99381-8360 (https://wa.me/5531993818360, owner, 2026-10-21); https://www.linkedin.com/in/jefferson-veloso-462195b1
 
 Absences that must not be fabricated: client logos, testimonials, user counts, revenue, performance benchmarks, GitHub stars. No metrics exist for any project yet.
 

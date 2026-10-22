@@ -23,7 +23,7 @@ export const portfolioContent: Portfolio = {
     photo: { src: "/images/jefferson-veloso.jpg", width: 240, height: 300 },
     cv: "/Jefferson_Veloso_CV.pdf",
     contact: {
-      email: "jfvsofthouse@gmail.com",
+      email: "jeffersonveloso_6@hotmail.com",
       emailSubject: "Remote role — let's talk",
       linkedin: "https://www.linkedin.com/in/jefferson-veloso-462195b1",
       github: "https://github.com/jeffersonveloso",
