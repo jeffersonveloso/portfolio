@@ -1,4 +1,5 @@
 import type { PortfolioRepository } from "@/application/ports/portfolio-repository";
+import type { Locale } from "@/domain/i18n/locale";
 import { mailtoUrl, whatsappUrl } from "@/domain/portfolio/contact";
 import type { Portfolio } from "@/domain/portfolio/portfolio";
 
@@ -16,7 +17,7 @@ export type PortfolioPage = {
   readonly links: ContactLinks;
 };
 
-/** Assembles the home page from the portfolio repository. */
+/** Assembles the home page, in one locale, from the portfolio repository. */
 export class GetPortfolioPage {
   private readonly repository: PortfolioRepository;
 
@@ -24,8 +25,8 @@ export class GetPortfolioPage {
     this.repository = repository;
   }
 
-  execute(): PortfolioPage {
-    const portfolio = this.repository.getPortfolio();
+  execute(locale: Locale): PortfolioPage {
+    const portfolio = this.repository.getPortfolio(locale);
     const { contact } = portfolio.profile;
     return {
       portfolio,

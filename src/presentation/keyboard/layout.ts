@@ -47,7 +47,8 @@ export const boardKeys: KeySpec[] = [
     ...letters("ASDFGHJKL"),
     ["Semicolon", ";"],
     ["Quote", "'"],
-    ["Enter", "Email me", 2.25, "action"],
+    // Enter and Space take their legends from the page's language.
+    ["Enter", "", 2.25, "action"],
   ]),
   ...row(3, [
     ["ShiftLeft", "shift", 2.25, "mod"],
@@ -62,7 +63,7 @@ export const boardKeys: KeySpec[] = [
     ["ControlLeft", "control", 1.25, "mod"],
     ["AltLeft", "option", 1.25, "mod"],
     ["MetaLeft", "command", 1.25, "mod"],
-    ["Space", "open to remote roles", 6.25, "alpha", true],
+    ["Space", "", 6.25, "alpha", true],
     ["MetaRight", "cmd", 1, "mod"],
     ["AltRight", "opt", 1, "mod"],
     ["ArrowLeft", "←", 1, "mod", true],

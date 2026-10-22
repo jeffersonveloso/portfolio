@@ -1,13 +1,14 @@
 import Image from "next/image";
 import type { Profile } from "@/domain/portfolio/profile";
+import { format, type Dictionary } from "@/presentation/i18n/dictionary";
 import { section, textLinkOnDark, tile, type } from "@/presentation/ui";
 
-export function Meet({ profile }: { profile: Profile }) {
+export function Meet({ profile, text }: { profile: Profile; text: Dictionary["meet"] }) {
   const firstName = profile.name.split(" ")[0];
   const facts = [
-    ["Experience", profile.facts.experience],
-    ["Based in", profile.facts.basedIn],
-    ["English", profile.facts.english],
+    [text.experience, profile.facts.experience],
+    [text.basedIn, profile.facts.basedIn],
+    [text.english, profile.facts.english],
   ];
   return (
     <section id="about" aria-labelledby="meet-title" className={`${tile.dark} ${section}`}>
@@ -16,13 +17,13 @@ export function Meet({ profile }: { profile: Profile }) {
           src={profile.photo.src}
           width={profile.photo.width}
           height={profile.photo.height}
-          alt={`Portrait of ${profile.name}`}
+          alt={format(text.portrait, { name: profile.name })}
           sizes="(min-width: 48rem) 22rem, 70vw"
           className="mx-auto aspect-[4/5] w-full max-w-[18rem] rounded-[18px] object-cover md:max-w-[22rem]"
         />
         <div>
           <h2 id="meet-title" className={type.displayLg}>
-            {`Meet ${firstName}.`}
+            {format(text.title, { name: firstName })}
           </h2>
           <p className={`${type.lead} mt-3 text-mist`}>{profile.tagline}</p>
           <p className="mt-6 max-w-[60ch] text-mist">{profile.bio}</p>
@@ -36,10 +37,10 @@ export function Meet({ profile }: { profile: Profile }) {
           </dl>
           <p className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
             <a href={profile.contact.linkedin} target="_blank" rel="noreferrer" className={textLinkOnDark}>
-              View my LinkedIn profile ›
+              {text.linkedin} ›
             </a>
             <a href={profile.contact.github} target="_blank" rel="noreferrer" className={textLinkOnDark}>
-              See my code on GitHub ›
+              {text.github} ›
             </a>
           </p>
         </div>

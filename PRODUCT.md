@@ -24,7 +24,7 @@ Jefferson is a Full Stack Software Engineer and Tech Lead with 9+ years of exper
 ## Operating Context
 
 - Visitors arrive from LinkedIn, job applications, and recruiter outreach.
-- The site is read in English. *(inferred: international audience)*
+- The site is read in English. *(inferred: international audience)* Brazilian recruiters get a Brazilian Portuguese version at `/pt-BR`, chosen from the browser's language; English stays the default and the reference text.
 - Projects are added later; the first version may ship with clearly marked demo projects. *(from the brief)*
 
 ## Capabilities and Constraints

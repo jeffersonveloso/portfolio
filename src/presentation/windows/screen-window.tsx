@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useId, useRef, type ReactNode } from "react";
 import { Close, Expand } from "@/presentation/icons";
 import type { Screenshot } from "@/domain/portfolio/media";
+import { format, type ScreenWindowText } from "@/presentation/i18n/dictionary";
 
 const frame = "overflow-hidden rounded-[10px] bg-[#1e1e20] shadow-product ring-1 ring-black/40";
 const control = "ml-auto inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[12px] leading-none text-[#c7c7cc]";
@@ -26,7 +27,14 @@ function TitleBar({ title, children }: { title: string; children: ReactNode }) {
 // A product screenshot in a macOS window. The whole window opens it full
 // size in a modal dialog: Esc, the Close control or a click outside closes
 // it, and focus returns to the window.
-export function ScreenWindow({ screen, sizes, className }: { screen: Screenshot; sizes: string; className: string }) {
+type ScreenWindowProps = {
+  screen: Screenshot;
+  text: ScreenWindowText;
+  sizes: string;
+  className: string;
+};
+
+export function ScreenWindow({ screen, text, sizes, className }: ScreenWindowProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const imageId = useId();
 
@@ -35,7 +43,7 @@ export function ScreenWindow({ screen, sizes, className }: { screen: Screenshot;
       <button
         type="button"
         aria-haspopup="dialog"
-        aria-label={`Expand screenshot: ${screen.title}`}
+        aria-label={format(text.expandLabel, { title: screen.title })}
         aria-describedby={imageId}
         onClick={() => dialog.current?.showModal()}
         className={`group block w-full cursor-zoom-in text-left ${frame} ${className}`}
@@ -43,7 +51,7 @@ export function ScreenWindow({ screen, sizes, className }: { screen: Screenshot;
         <TitleBar title={screen.title}>
           <span aria-hidden="true" className={`${control} relative group-hover:bg-white/10`}>
             <Expand width="12" height="12" />
-            Expand
+            {text.expand}
           </span>
         </TitleBar>
         <Image
@@ -74,7 +82,7 @@ export function ScreenWindow({ screen, sizes, className }: { screen: Screenshot;
               className={`${control} relative hover:bg-white/10`}
             >
               <Close width="12" height="12" />
-              Close
+              {text.close}
             </button>
           </TitleBar>
           {/* Full size, unprocessed, so the interface text stays sharp. From

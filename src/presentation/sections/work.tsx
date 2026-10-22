@@ -1,5 +1,6 @@
 import type { CaseStudy, Engagement, Project } from "@/domain/portfolio/work";
 import { formatPeriod } from "@/domain/portfolio/period";
+import type { Dictionary, ScreenWindowText } from "@/presentation/i18n/dictionary";
 import { Keyset } from "@/presentation/keyboard/keyset";
 import { SplitKeyset } from "@/presentation/keyboard/split-keyset";
 import { section, textLink, textLinkOnDark, tile, type } from "@/presentation/ui";
@@ -23,14 +24,23 @@ function Credits({ rows, dark }: { rows: [term: string, value: string][]; dark: 
   );
 }
 
-function ProjectTile({ project, surface }: { project: Project; surface: keyof typeof tile }) {
+type WorkText = Dictionary["work"];
+
+type ProjectTileProps = {
+  project: Project;
+  surface: keyof typeof tile;
+  text: WorkText;
+  present: string;
+};
+
+function ProjectTile({ project, surface, text, present }: ProjectTileProps) {
   const dark = surface.startsWith("dark");
   const featured = surface === "dark2";
   const credits: [string, string][] = [
-    ["Role", project.role],
-    ["Stack", dotted(project.stack)],
-    ...(project.period ? [["Year", formatPeriod(project.period)] as [string, string]] : []),
-    ["Stage", project.stage],
+    [text.credits.role, project.role],
+    [text.credits.stack, dotted(project.stack)],
+    ...(project.period ? [[text.credits.year, formatPeriod(project.period, present)] as [string, string]] : []),
+    [text.credits.stage, project.stage],
   ];
   return (
     <article
@@ -66,12 +76,20 @@ function ProjectTile({ project, surface }: { project: Project; surface: keyof ty
 
 // A client case told as problem, build and result, under its split keyset,
 // with the real product in two overlapping windows.
-function CaseStudyTile({ study }: { study: CaseStudy }) {
+function CaseStudyTile({
+  study,
+  text,
+  screenshot,
+}: {
+  study: CaseStudy;
+  text: WorkText;
+  screenshot: ScreenWindowText;
+}) {
   const [board, detail] = study.screenshots;
   const story = [
-    ["The problem", study.problem],
-    ["What I built", study.solution],
-    ["The result", study.result],
+    [text.story.problem, study.problem],
+    [text.story.solution, study.solution],
+    [text.story.result, study.result],
   ];
   return (
     <article
@@ -98,11 +116,13 @@ function CaseStudyTile({ study }: { study: CaseStudy }) {
         <div className="grid gap-6 md:grid-cols-12 md:gap-0 md:pb-16">
           <ScreenWindow
             screen={board}
+            text={screenshot}
             sizes="(min-width: 64rem) 735px, (min-width: 48rem) 75vw, 100vw"
             className="md:col-[1/10] md:row-start-1"
           />
           <ScreenWindow
             screen={detail}
+            text={screenshot}
             sizes="(min-width: 64rem) 572px, (min-width: 48rem) 58vw, 100vw"
             className="md:col-[6/13] md:row-start-1 md:translate-y-16 md:self-end"
           />
@@ -114,10 +134,10 @@ function CaseStudyTile({ study }: { study: CaseStudy }) {
       <div className="mt-12 w-full">
         <Credits
           rows={[
-            ["Role", study.role],
-            ["Client", study.client],
-            ["Stack", dotted(study.stack)],
-            ["Stage", study.stage],
+            [text.credits.role, study.role],
+            [text.credits.client, study.client],
+            [text.credits.stack, dotted(study.stack)],
+            [text.credits.stage, study.stage],
           ]}
           dark
         />
@@ -131,36 +151,42 @@ type WorkProps = {
   projects: readonly Project[];
   caseStudy: CaseStudy;
   engagements: readonly Engagement[];
+  text: WorkText;
+  screenshot: ScreenWindowText;
+  /** How a running period ends ("now"). */
+  present: string;
 };
 
-export function Work({ projects, caseStudy, engagements }: WorkProps) {
+export function Work({ projects, caseStudy, engagements, text, screenshot, present }: WorkProps) {
   const [featured, ...rest] = projects;
   return (
     <section id="work" aria-labelledby="work-title">
       <div className={`${tile.light} ${section} text-center`}>
         <h2 id="work-title" className={type.displayLg}>
-          Selected work.
+          {text.title}
         </h2>
-        <p className={`${type.lead} mx-auto mt-3 max-w-[32ch] text-balance`}>
-          Three products I built, and one client case study.
-        </p>
+        <p className={`${type.lead} mx-auto mt-3 max-w-[32ch] text-balance`}>{text.lead}</p>
       </div>
 
-      <ProjectTile project={featured} surface="dark2" />
+      <ProjectTile project={featured} surface="dark2" text={text} present={present} />
       <div className="grid grid-cols-1 md:grid-cols-2">
         {rest.map((project, i) => (
-          <ProjectTile key={project.slug} project={project} surface={i === 0 ? "light" : "parchment"} />
+          <ProjectTile
+            key={project.slug}
+            project={project}
+            surface={i === 0 ? "light" : "parchment"}
+            text={text}
+            present={present}
+          />
         ))}
       </div>
 
-      <CaseStudyTile study={caseStudy} />
+      <CaseStudyTile study={caseStudy} text={text} screenshot={screenshot} />
 
       <div className={`${tile.parchment} ${section}`}>
         <div className="mx-auto max-w-[980px]">
-          <h3 className={`${type.displayMd} text-center`}>Integration work.</h3>
-          <p className="mx-auto mt-3 max-w-[52ch] text-center text-graphite-80">
-            ERP and CRM integrations for clients, plus a product of my own built on the same skills.
-          </p>
+          <h3 className={`${type.displayMd} text-center`}>{text.integrations.title}</h3>
+          <p className="mx-auto mt-3 max-w-[52ch] text-center text-graphite-80">{text.integrations.lead}</p>
           <ul className="mt-10 border-t border-black/10">
             {engagements.map((item) => (
               <li

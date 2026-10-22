@@ -1,17 +1,19 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { CopyEmailText } from "@/presentation/i18n/dictionary";
 import { Check, Copy } from "@/presentation/icons";
 
-type Status = "idle" | "copied" | "failed";
+type Status = keyof CopyEmailText;
 
-const LABELS: Record<Status, string> = {
-  idle: "Copy email",
-  copied: "Email copied",
-  failed: "Copy failed, select the address instead",
+type CopyEmailProps = {
+  email: string;
+  /** What the button says while idle, after a copy and after a failure. */
+  labels: CopyEmailText;
+  className?: string;
 };
 
-export function CopyEmail({ email, className = "" }: { email: string; className?: string }) {
+export function CopyEmail({ email, labels, className = "" }: CopyEmailProps) {
   const [status, setStatus] = useState<Status>("idle");
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
@@ -31,7 +33,7 @@ export function CopyEmail({ email, className = "" }: { email: string; className?
   return (
     <button type="button" onClick={copy} className={className}>
       {status === "copied" ? <Check /> : <Copy />}
-      <span aria-live="polite">{LABELS[status]}</span>
+      <span aria-live="polite">{labels[status]}</span>
     </button>
   );
 }

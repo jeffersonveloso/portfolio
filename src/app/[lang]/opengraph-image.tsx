@@ -2,20 +2,27 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { portfolioPage } from "@/app/composition-root";
+import { localeOf } from "@/app/locale-param";
+import { defaultLocale } from "@/domain/i18n/locale";
+import { getDictionary } from "@/presentation/i18n/dictionaries";
 import { glow } from "@/presentation/keyboard/layout";
 
-const { profile } = portfolioPage.portfolio;
+// Name and role read the same in every locale.
+const { profile: owner } = portfolioPage(defaultLocale).portfolio;
 
-export const alt = `${profile.name}, ${profile.role}`;
+export const alt = `${owner.name}, ${owner.role}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const NAME = profile.name.split(" ")[0].toUpperCase();
 const KEY = 76;
 
 // Share card in the home page's language: a white Apple tile, the name and
 // role, and a strip of keycaps spelling the name in the stripe colours.
-export default async function Image() {
+export default async function Image({ params }: { params: Promise<{ lang: string }> }) {
+  const locale = await localeOf(params);
+  const { profile } = portfolioPage(locale).portfolio;
+  const { availability } = getDictionary(locale);
+  const name = profile.name.split(" ")[0].toUpperCase();
   const fontsDir = join(process.cwd(), "src/app/og-fonts");
   const [semibold, regular] = await Promise.all([
     readFile(join(fontsDir, "Inter-SemiBold.woff")),
@@ -49,7 +56,7 @@ export default async function Image() {
           boxShadow: "3px 5px 30px rgba(0,0,0,0.22)",
         }}
       >
-        {NAME.split("").map((letter, i) => {
+        {name.split("").map((letter, i) => {
           const { lit, legend } = glow[i % glow.length];
           return (
             <div
@@ -94,7 +101,7 @@ export default async function Image() {
           fontSize: 24,
         }}
       >
-        Open to remote roles · Brazil, UTC−3
+        {`${availability} · ${profile.location.country}, ${profile.location.timezone}`}
       </div>
     </div>,
     {

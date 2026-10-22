@@ -4,6 +4,7 @@ export type Period = {
   readonly to?: number;
 };
 
-export function formatPeriod({ from, to }: Period): string {
-  return `${from} — ${to ?? "now"}`;
+/** The period as "from — to", with `present` ("now") ending a running one. */
+export function formatPeriod({ from, to }: Period, present: string): string {
+  return `${from} — ${to ?? present}`;
 }

@@ -7,7 +7,7 @@ import { useSectionNavigator } from "@/presentation/navigation/section-navigator
 // Back to top: a single graphite arrow key in its own case, floating at the
 // bottom right once the hero has scrolled out of view. Without JavaScript it
 // is a plain link to the hero.
-export function BackToTop() {
+export function BackToTop({ label }: { label: string }) {
   const navigator = useSectionNavigator();
   const [shown, setShown] = useState(false);
 
@@ -27,7 +27,7 @@ export function BackToTop() {
   };
 
   return (
-    <a href="#top" onClick={toTop} aria-label="Back to top" data-shown={shown || undefined} className="kb kb-top">
+    <a href="#top" onClick={toTop} aria-label={label} data-shown={shown || undefined} className="kb kb-top">
       <span className="kb-plate block" style={{ "--units": 1, "--rows": 1 } as CSSProperties}>
         <span className="key" data-tone="mod" style={{ "--x": 0, "--y": 0, "--w": 1 } as CSSProperties}>
           <span className="key-cap">

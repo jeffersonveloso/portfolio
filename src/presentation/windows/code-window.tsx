@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Profile } from "@/domain/portfolio/profile";
+import type { CodeWindowText } from "@/presentation/i18n/dictionary";
 
 type Tok = [kind: keyof typeof INK, text: string];
 
@@ -26,11 +27,12 @@ const prop = (name: string, ...value: Tok[]): Tok[] => [
   ["pu", ","],
 ];
 
-// The source lines, built from the profile.
-function sourceLines(profile: Profile, stack: readonly string[]): Tok[][] {
+// The source lines, built from the profile. The code stays English; its
+// comments are in the page's language.
+function sourceLines(profile: Profile, stack: readonly string[], text: CodeWindowText): Tok[][] {
   const list = stack.flatMap((item, i): Tok[] => (i === 0 ? [s(item)] : [["pu", ", "], s(item)]));
   return [
-    [["cm", "// jefferson.ts: the short version"]],
+    [["cm", text.comment]],
     [
       ["kw", "import"],
       ["pu", " { "],
@@ -81,7 +83,7 @@ function sourceLines(profile: Profile, stack: readonly string[]): Tok[][] {
       ["pu", "("],
       ["pl", "team.problem"],
       ["pu", ");"],
-      ["cm", " // PRD → tech spec → tasks"],
+      ["cm", text.specComment],
     ],
     [
       ["pl", "  "],
@@ -141,19 +143,25 @@ function sourceLines(profile: Profile, stack: readonly string[]): Tok[][] {
   ];
 }
 
-// Lines the debugger steps through, with what the console prints for each.
+// Lines the debugger steps through; the console prints each step's output.
 const STEPS = [
-  { line: 14, step: "write", out: "PRD, tech spec and tasks" },
-  { line: 15, step: "connect", out: "ERP and CRM talking to each other" },
-  { line: 16, step: "build", out: "full stack, TypeScript end to end" },
-  { line: 17, step: "review", out: "CodeRabbit plus peer review" },
-  { line: 18, step: "ship", out: "in front of real users" },
-];
+  { line: 14, step: "write" },
+  { line: 15, step: "connect" },
+  { line: 16, step: "build" },
+  { line: 17, step: "review" },
+  { line: 18, step: "ship" },
+] as const;
 
 const STEP_MS = 900;
 
-export function CodeWindow({ profile, stack }: { profile: Profile; stack: readonly string[] }) {
-  const lines = sourceLines(profile, stack);
+type CodeWindowProps = {
+  profile: Profile;
+  stack: readonly string[];
+  text: CodeWindowText;
+};
+
+export function CodeWindow({ profile, stack, text }: CodeWindowProps) {
+  const lines = sourceLines(profile, stack, text);
   const root = useRef<HTMLDivElement>(null);
   // -1: idle with every result shown; 0..n: running, n steps done.
   const [step, setStep] = useState(-1);
@@ -207,9 +215,7 @@ export function CodeWindow({ profile, stack }: { profile: Profile; stack: readon
           <span className="traffic bg-[#febc2e]" />
           <span className="traffic bg-[#28c840]" />
         </div>
-        <p className="pointer-events-none absolute inset-x-0 text-center text-[13px] text-[#a1a1a6]">
-          jefferson.ts — portfolio
-        </p>
+        <p className="pointer-events-none absolute inset-x-0 text-center text-[13px] text-[#a1a1a6]">{text.window}</p>
         <button
           type="button"
           onClick={run}
@@ -218,7 +224,7 @@ export function CodeWindow({ profile, stack }: { profile: Profile; stack: readon
           <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
             <path d="M3 1.5v9l7-4.5z" fill="currentColor" />
           </svg>
-          Run
+          {text.run}
         </button>
       </div>
 
@@ -251,7 +257,7 @@ export function CodeWindow({ profile, stack }: { profile: Profile; stack: readon
             <li key={item.step} className={`flex gap-3 ${i < done ? "" : "invisible"}`}>
               <span className="text-[#28c840]">✓</span>
               <span className="w-16 shrink-0 text-[#e5e5e7]">{item.step}</span>
-              <span className="text-[#a8a8ad]">{item.out}</span>
+              <span className="text-[#a8a8ad]">{text.output[item.step]}</span>
             </li>
           ))}
         </ul>

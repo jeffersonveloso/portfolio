@@ -1,3 +1,4 @@
+import type { Dictionary } from "@/presentation/i18n/dictionary";
 import { section, tile, type } from "@/presentation/ui";
 import type { Education, Job } from "@/domain/portfolio/career";
 import { formatPeriod } from "@/domain/portfolio/period";
@@ -9,19 +10,18 @@ type ExperienceProps = {
   jobs: readonly Job[];
   education: readonly Education[];
   languages: readonly Language[];
+  text: Dictionary["experience"];
 };
 
-export function Experience({ jobs, education, languages }: ExperienceProps) {
+export function Experience({ jobs, education, languages, text }: ExperienceProps) {
   return (
     <section id="experience" aria-labelledby="experience-title" className={`${tile.parchment} ${section}`}>
       <div className="mx-auto max-w-[980px]">
         <div className="text-center">
           <h2 id="experience-title" className={type.displayLg}>
-            Experience.
+            {text.title}
           </h2>
-          <p className={`${type.lead} mx-auto mt-3 max-w-[30ch] text-balance`}>
-            Nine years shipping software for real businesses.
-          </p>
+          <p className={`${type.lead} mx-auto mt-3 max-w-[30ch] text-balance`}>{text.lead}</p>
         </div>
 
         <ol className="mt-12 flex flex-col gap-5">
@@ -30,7 +30,7 @@ export function Experience({ jobs, education, languages }: ExperienceProps) {
               <p
                 className={`${type.captionStrong} hidden whitespace-nowrap text-secondary tabular-nums md:block md:pt-1`}
               >
-                {formatPeriod(job.period)}
+                {formatPeriod(job.period, text.present)}
               </p>
               <div>
                 <h3 className={type.tagline}>{job.role}</h3>
@@ -38,7 +38,7 @@ export function Experience({ jobs, education, languages }: ExperienceProps) {
                   {job.company}
                   <span className="whitespace-nowrap text-secondary tabular-nums md:hidden">
                     {" "}
-                    · {formatPeriod(job.period)}
+                    · {formatPeriod(job.period, text.present)}
                   </span>
                 </p>
                 <ul className="mt-4 flex flex-col gap-2 text-graphite-80">
@@ -56,7 +56,7 @@ export function Experience({ jobs, education, languages }: ExperienceProps) {
 
         <div className="mt-5">
           <div className={card}>
-            <h3 className={type.tagline}>Education &amp; languages</h3>
+            <h3 className={type.tagline}>{text.education}</h3>
             <ul className="mt-4 grid md:grid-cols-2 md:gap-x-8">
               {education.map((item) => (
                 <li key={item.title} className="border-b border-divider py-3 md:nth-last-2:border-b-0">
@@ -66,7 +66,7 @@ export function Experience({ jobs, education, languages }: ExperienceProps) {
               ))}
               <li className="py-3">
                 <p className={type.bodyStrong}>{languages.map(formatLanguage).join(" · ")}</p>
-                <p className={`${type.caption} mt-1 text-secondary`}>Comfortable working in English-speaking teams</p>
+                <p className={`${type.caption} mt-1 text-secondary`}>{text.english}</p>
               </li>
             </ul>
           </div>

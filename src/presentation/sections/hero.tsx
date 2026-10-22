@@ -1,3 +1,4 @@
+import type { Dictionary } from "@/presentation/i18n/dictionary";
 import { Download } from "@/presentation/icons";
 import { Keyboard } from "@/presentation/keyboard/keyboard";
 import type { Profile } from "@/domain/portfolio/profile";
@@ -8,9 +9,10 @@ type HeroProps = {
   profile: Profile;
   sections: readonly Section[];
   mailto: string;
+  text: Pick<Dictionary, "hero" | "keyboard" | "emailMe">;
 };
 
-export function Hero({ profile, sections, mailto }: HeroProps) {
+export function Hero({ profile, sections, mailto, text }: HeroProps) {
   return (
     <section
       id="top"
@@ -24,19 +26,25 @@ export function Hero({ profile, sections, mailto }: HeroProps) {
       <p className="mx-auto mt-4 max-w-[46ch] text-graphite-80">{profile.summary}</p>
       <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
         <a href={mailto} className={button.primary}>
-          Email me
+          {text.emailMe}
         </a>
         <a href={profile.cv} download type="application/pdf" className={button.ghost}>
           <Download />
-          Download CV
+          {text.hero.downloadCv}
         </a>
         <a href="#work" className={button.ghost}>
-          See the work
+          {text.hero.seeWork}
         </a>
       </div>
 
       <div className="mt-12 flex flex-col items-center md:mt-16">
-        <Keyboard intro={profile.name.toUpperCase()} enterHref={mailto} sections={sections} className="kb-hero" />
+        <Keyboard
+          intro={profile.name.toUpperCase()}
+          enterHref={mailto}
+          sections={sections}
+          text={text.keyboard}
+          className="kb-hero"
+        />
       </div>
     </section>
   );

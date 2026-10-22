@@ -1,6 +1,7 @@
 import { useEffect, useState, type RefObject } from "react";
 import { TypedEntry, type SectionMatch } from "@/domain/navigation/typed-entry";
 import type { Section } from "@/domain/portfolio/section";
+import { format } from "@/presentation/i18n/dictionary";
 import { useSectionNavigator } from "@/presentation/navigation/section-navigator-context";
 
 // The finished name stays on screen this long before the page moves.
@@ -17,10 +18,15 @@ export type TypedNavigation = {
 
 /**
  * Turns typing into navigation. While `active` (the board is in view), keys
- * edit a TypedEntry, and finishing a section's name moves there. Keys with
- * Cmd, Ctrl or Alt, and typing inside a form field, never count.
+ * edit a TypedEntry, and finishing a section's name moves there and announces
+ * it with `jumped` ("Jumped to {section}."). Keys with Cmd, Ctrl or Alt, and
+ * typing inside a form field, never count.
  */
-export function useTypedNavigation(sections: readonly Section[], active: RefObject<boolean>): TypedNavigation {
+export function useTypedNavigation(
+  sections: readonly Section[],
+  active: RefObject<boolean>,
+  jumped: string,
+): TypedNavigation {
   const navigator = useSectionNavigator();
   const [entry, setEntry] = useState(TypedEntry.empty);
   const [announcement, setAnnouncement] = useState("");
@@ -48,7 +54,7 @@ export function useTypedNavigation(sections: readonly Section[], active: RefObje
       const id = window.setTimeout(() => {
         jumps.delete(id);
         navigator.goTo(match.section);
-        setAnnouncement(`Jumped to ${match.section.label}.`);
+        setAnnouncement(format(jumped, { section: match.section.label }));
         update(TypedEntry.empty);
       }, JUMP_MS);
       jumps.add(id);
@@ -60,7 +66,7 @@ export function useTypedNavigation(sections: readonly Section[], active: RefObje
       window.clearTimeout(idle);
       jumps.forEach((id) => window.clearTimeout(id));
     };
-  }, [sections, active, navigator]);
+  }, [sections, active, navigator, jumped]);
 
   return { entry, match: entry.match(sections), announcement };
 }
